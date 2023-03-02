@@ -62,18 +62,16 @@ all = transform(
                 regmatches(all$Var1,
                            regexpr("[^M]", diffc)),
                 ""),
-  diff2 = ifelse(
-    !grepl("[ID]", diffc),
-    regmatches(all$Var2,
-               regexpr("[^M]", diffc)),
-    regmatches(all$longer,
-               regexpr("[^M]", diffc))
+  diff2 = ifelse(!grepl("[ID]", diffc),
+                 regmatches(all$Var2,
+                            regexpr("[^M]", diffc)),
+                 regmatches(all$longer,
+                            regexpr("[^M]", diffc))
   ),
   diff.pre = regmatches(all$longer,
                         regexpr("[^M]", diffc) - 1),
   diff.post = regmatches(all$longer,
-                         regexpr("[^M]", diffc) + 1
-  )
+                         regexpr("[^M]", diffc) + 1)
 )
 
 # Run below if you want to remove pairs which differ in zero vs. something. You can also filter at this point by pre or post if desired.
@@ -90,7 +88,11 @@ high = c("i", "u")
 mid = c("e", "o")
 low = c("a")
 
-pairs = apply(permutations(n = length(c(high, mid, low)), r = 2, v = c(high, mid, low)), 1, paste0, collapse = "")
+pairs = apply(
+  permutations(
+    n = length(c(high, mid, low)), 
+    r = 2, v = c(high, mid, low)), 
+  1, paste0, collapse = "")
 
 # Get only those pairs which differ along the above lines
 minimals = all %>% 
